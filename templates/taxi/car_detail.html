@@ -25,12 +25,13 @@
     {% endfor %}
   </ul>
 
-  <form method="post">
+  <form method="POST" action="{% url 'taxi:toggle-car-driver' car.pk %}">
     {% csrf_token %}
-    {% if user not in car.drivers.all %}
-      <button type="submit" class="btn btn-success ml-3">Assign me to this car</button>
-    {% else %}
+    {% if request.user in car.drivers.all %}
       <button type="submit" class="btn btn-danger ml-3">Delete me from this car</button>
+    {% else %}
+      <button type="submit" class="btn btn-success ml-3">Assign me to this car</button>
     {% endif %}
   </form>
+
 {% endblock %}
